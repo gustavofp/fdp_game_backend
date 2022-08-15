@@ -10,6 +10,29 @@ defmodule GameWeb.RoomsChannel do
     end
   end
 
+  @impl true
+  def handle_in("rooms:started", payload, socket) do
+    IO.puts "oi"
+    IO.inspect payload
+    {:reply, {:ok, payload}, socket}
+  end
+
+  # @impl true
+  # def handle_in("rooms:create", payload, socket) do
+  #   %{
+  #     name: payload["room_name"],
+  #     players: [%{ name: payload["host_player"]["name"] }]
+  #   } |> RoomRepository.create_room
+
+  #   {:noreply, socket}
+  # end
+
+  # @impl true
+  # def handle_in("rooms:feed", payload, socket) do
+  #   IO.puts "handle in"
+  #   {:reply, {:ok, payload}, socket}
+  # end
+
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
   @impl true

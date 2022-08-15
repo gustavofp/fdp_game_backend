@@ -1,5 +1,6 @@
 defmodule GameWeb.Router do
   use GameWeb, :router
+  alias RoomController
 
   pipeline :api do
     plug :accepts, ["json"]
@@ -7,6 +8,12 @@ defmodule GameWeb.Router do
 
   scope "/api", GameWeb do
     pipe_through :api
+
+    get "/rooms", RoomController, :get_all
+    get "/rooms/:id", RoomController, :get_by_id
+    post "/rooms", RoomController, :create
+    put "/rooms/join/:id", RoomController, :join
+    put "/rooms/start/:id", RoomController, :start_game
   end
 
   # Enables LiveDashboard only for development

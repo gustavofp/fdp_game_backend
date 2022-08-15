@@ -41,7 +41,8 @@ defmodule Game.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:poison, "~> 2.0"},
       {:rethinkdb, "~> 0.4.0"},
-      {:rethinkdb_changefeed, "~> 0.0.1"}
+      {:rethinkdb_changefeed, "~> 0.0.1"},
+      {:cors_plug, "~> 3.0"},
     ]
   end
 

@@ -13,9 +13,23 @@ defmodule Game.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Game.PubSub},
       # Start the Endpoint (http/https)
-      GameWeb.Endpoint
+      GameWeb.Endpoint,
       # Start a worker by calling: Game.Worker.start_link(arg)
       # {Game.Worker, arg}
+      # Supervisor.Spec.worker(Game.Database, [[port: 28015, host: "localhost", db: "game"]]),
+      %{
+        id: Game.Database,
+        start: {Game.Database, :start_link, [[port: 28015, host: "localhost", db: "game"]]}
+      },
+      # Supervisor.Spec.worker(Game.Feeds.ChangefeedSupervisor, [])
+      # %{
+      #   id: Game.Feeds.ChangefeedSupervisor,
+      #   start: {Game.Feeds.ChangefeedSupervisor, :start_link, []}
+      # }
+      %{
+        id: Game.Feeds.RoomFeed,
+        start: {Game.Feeds.RoomFeed, :start_link, [Game.Database, [[port: 28015, host: "localhost", db: "game"]]]}
+      },
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
