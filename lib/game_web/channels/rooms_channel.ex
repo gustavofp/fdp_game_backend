@@ -11,7 +11,22 @@ defmodule GameWeb.RoomsChannel do
   end
 
   @impl true
-  def handle_in("rooms:started", payload, socket) do
+  def join("rooms:" <> _room_id, payload, socket) do
+    if authorized?(payload) do
+      {:ok, socket}
+    else
+      {:error, %{reason: "unauthorized"}}
+    end
+  end
+
+  @impl true
+  def handle_in("new_message", payload, socket) do
+    broadcast(socket, "shout", payload)
+    {:reply, {:ok, payload}, socket}
+  end
+
+  @impl true
+  def handle_in("room_started", payload, socket) do
     IO.puts "oi"
     IO.inspect payload
     {:reply, {:ok, payload}, socket}

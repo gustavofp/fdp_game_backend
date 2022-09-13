@@ -26,18 +26,18 @@ defmodule Game.Feeds.RoomFeed do
     IO.inspect data
     IO.inspect state
 
-    if length(data) > 0 do
-      register = Enum.at(data, 0)
-      updated_room = register["new_val"]
-      if updated_room["status"] == "started" do
-        IO.puts "broadcast"
-        GameWeb.Endpoint.broadcast "rooms:lobby", "rooms:started", %{ rooms: updated_room }
-      end
-    end
+    # if length(data) > 0 do
+    #   register = Enum.at(data, 0)
+    #   updated_room = register["new_val"]
+    #   if updated_room["status"] == "started" do
+    #     IO.puts "broadcast"
+    #     GameWeb.Endpoint.broadcast!("game:lobby", "game_started", %{ room: updated_room })
+    #   end
+    # end
 
     results = RoomRepository.get_all
 
-    GameWeb.Endpoint.broadcast "rooms:lobby", "rooms:feed", %{ rooms: results }
+    GameWeb.Endpoint.broadcast("rooms:lobby", "feed_updated", %{ rooms: results })
     IO.puts "enviou"
     {:next, data}
   end

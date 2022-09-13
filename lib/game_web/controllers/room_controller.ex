@@ -3,10 +3,11 @@ defmodule GameWeb.RoomController do
   alias Game.RoomRepository
   alias GameWeb.Models.Room
 
-  def create(conn, %{"room_name" => room_name, "host_player" => %{ "name" => host_player_name}}) do
+  def create(conn, %{"name" => name, "max_players" => max_players, "players" => players }) do
     %Room{
-      name: room_name,
-      players: [%{ name: host_player_name }]
+      name: name,
+      max_players: max_players,
+      players: players
     }
       |> RoomRepository.create_room
 
@@ -28,12 +29,14 @@ defmodule GameWeb.RoomController do
   def start_game(conn, %{"id" => room_id}) do
     _room = RoomRepository.start_game(room_id)
 
-    send_resp(conn, :ok, "")
+    GameWeb.Endpoint.broadcast("game:lobby", "game_started", %{ room_id: room_id })
+
+    json(conn, %{ game_id: room_id })
   end
 
   def join(conn, %{"id" => room_id, "player" => player}) do
     _room = RoomRepository.join_player(room_id, player)
 
-    send_resp(conn, :ok, "")
+    json(conn, %{ game_id: room_id })
   end
 end

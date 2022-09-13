@@ -9,7 +9,7 @@ defmodule GameWeb.UserSocket do
   ## Channels
 
   channel "rooms:*", GameWeb.RoomsChannel
-
+  channel "game:*", GameWeb.GameChannel
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
   # verification, you can put default assigns into
