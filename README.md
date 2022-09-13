@@ -1,13 +1,14 @@
-# Game
+# Game Rooms
 
-To start your Phoenix server:
+Personal project using Elixir and RethinkDB
 
-  * Install dependencies with `mix deps.get`
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+The project is a service that you can create "game rooms" and join them
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+The service offer some sockets where you can listen to changes on game rooms
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+You can use the frontend on [this repository]() to test the features
+
+
 
 ## Learn more
 
